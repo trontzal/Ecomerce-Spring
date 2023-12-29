@@ -1,0 +1,16 @@
+CREATE TABLE `productos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `codigo_barras` varchar(13) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(500) DEFAULT NULL,
+  `precio` decimal(18,2) NOT NULL,
+  `fecha_caducidad` date DEFAULT NULL,
+  `unidades` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `codigo_barras_UNIQUE` (`codigo_barras`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE USER 'ecommerce'@'localhost' IDENTIFIED BY 'contra';
+GRANT ALL PRIVILEGES ON ecommerce.* TO 'ecommerce'@'localhost';
+FLUSH PRIVILEGES;
