@@ -10,35 +10,40 @@ import com.ecommerce.entidades.Producto;
 @Component
 class DaoProductoJdcb implements DaoProducto{
 
+	private static final String SQL_SELECT = "SELECT * FROM productos";
+	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE id = ?";
+	private static final String SQL_INSERT = "INSERT INTO productos (codigo_barras, nombre, descripcion, precio, fecha_caducidad, unidades)  VALUES (?,?,?,?,?,?)";
+	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
+	
 	@Autowired
 	private JdbcTemplate jdbc;
 	
 	@Override
 	public Iterable<Producto> obtenerTodos() {
-		return jdbc.query("SELECT * FROM productos", new BeanPropertyRowMapper<Producto>(Producto.class));
+		return jdbc.query(SQL_SELECT, new BeanPropertyRowMapper<Producto>(Producto.class)); 
 	}
 
 	@Override
 	public Producto obtenerPorId(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return jdbc.queryForObject(SQL_SELECT_ID, new BeanPropertyRowMapper<Producto>(Producto.class), id);
 	}
 
 	@Override
-	public Producto insertar(Producto objeto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Producto insertar(Producto producto) {
+		jdbc.update(SQL_INSERT, producto.getCodigoBarras(), producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getFechaCaducidad(), producto.getUnidades());
+		return producto;
 	}
 
 	@Override
 	public Producto modificar(Producto objeto) {
 		// TODO Auto-generated method stub
+		// Para el futuro
 		return null;
 	}
 
 	@Override
 	public void borrar(Long id) {
-		// TODO Auto-generated method stub
+		jdbc.update(SQL_DELETE, id);
 		
 	}
 
