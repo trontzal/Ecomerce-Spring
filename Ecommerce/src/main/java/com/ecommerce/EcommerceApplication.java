@@ -34,6 +34,22 @@ public class EcommerceApplication implements CommandLineRunner {
 		for (Producto p : dao.obtenerTodos()) {
 			System.out.println(p);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	}
 
